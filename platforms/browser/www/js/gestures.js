@@ -13,14 +13,14 @@ var app={
     },
 };
 /*Cuando hay fastclick: Inicio*/
-/*if ('addEventListener' in document){
+if ('addEventListener' in document){
     document.addEventListener('DOMContentLoaded',function(){
         FastClick.attach(document.body);
         app.inicio();
     },false);
-}*/
+}
 /*Cuando hay fastclick: Fin*/
 
 /*Cuando no hay fastclick: Inicio*/
-app.inicio();
+//app.inicio();
 /*Cuando no hay fastclick: Fin*/
