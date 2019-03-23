@@ -9,6 +9,18 @@ var app={
     iniciaBoton:function(){
         var buttonAction = document.querySelector('#button-action');
         buttonAction.addEventListener('click',this.tomarFoto);
+
+        //Agregando Filtros
+        var filterButtons = document.querySelectorAll('.button-filter');
+        filterButtons[0].addEventListener('click',function(){
+            app.aplicaFiltro('gray');
+        });
+        filterButtons[1].addEventListener('click',function(){
+            app.aplicaFiltro('negative');
+        });
+        filterButtons[2].addEventListener('click',function(){
+            app.aplicaFiltro('sepia');
+        });
     },
     tomarFoto:function(){
         var opciones = {
@@ -36,9 +48,19 @@ var app={
     },
     errorAlTomarFoto:function(menssage){
         console.log('Fallo al tomar foto o toma cancelada' + menssage);
+    },
+    aplicaFiltro:function(filterName){
+        console.log('a');
+        var canvas = document.querySelector('#foto');
+        var context = canvas.getContext('2d');
+        imageData = context.getImageData(0,0,canvas.width,canvas.height);
+
+        effects[filterName](imageData.data);
+        context.putImageData(imageData,0,0);
     }
 };
 //Iniciamos
+var imageData;
 if ('addEventListener' in document){
     document.addEventListener('DOMContentLoaded',function(){
         FastClick.attach(document.body);

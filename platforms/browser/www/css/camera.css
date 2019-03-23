@@ -40,3 +40,9 @@ body{
     border-radius: 10px;
     background-color: #fd4140;
 }
+
+.button-filter{
+    font-size: medium;
+    width: 6rem;
+    background-color: #7abaf2;
+}
