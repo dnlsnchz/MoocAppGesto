@@ -7,6 +7,22 @@ var app = {
     },
 
     onSuccess: function(datosAceleracion){
+        app.detectarAgitacion(datosAceleracion);
+        app.representaValores(datosAceleracion);
+    },
+
+    detectarAgitacion: function(datosAceleracion){
+        agitacionX = datosAceleracion.x > 10;
+        agitacionY = datosAceleracion.y > 10;
+
+        if (agitacionX || agitacionY){
+            document.body.className = 'agitado';
+        }else{
+            document.body.className='';
+        }
+    },
+
+    representaValores: function(datosAceleracion){
         app.representa(datosAceleracion.x,'#valorx');
         app.representa(datosAceleracion.y,'#valory');
         app.representa(datosAceleracion.z,'#valorz');

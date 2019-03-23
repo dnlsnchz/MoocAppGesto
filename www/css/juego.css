@@ -6,6 +6,10 @@ body{
     font-weight: 300;
     background-color: #fdcf58;
 }
+
+body.agitado{
+    background-color: #800909;
+}
 .header{
     padding: 0 10px;
     color: #666;
