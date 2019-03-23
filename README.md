@@ -30,3 +30,4 @@ Modulo 2
 Modulo 3
     Paso 2 utilizamos Leaffet para poder interactuar con el mapa.
         MapBox: Libreria de tiles, son sirven para mostrar las imagenes del mapa, que integraremos con leaffet.
+    Paso 3 Animaremos los mapas para crear point cuando pulsamos el mapa.
