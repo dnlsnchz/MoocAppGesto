@@ -26,3 +26,6 @@ Session 3
 
 Modulo 2
     Paso 2
+
+Modulo 3
+    Paso 2 utilizamos Leaffet para poder interactuar con el mapa
