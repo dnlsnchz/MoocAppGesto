@@ -31,3 +31,6 @@ Modulo 3
     Paso 2 utilizamos Leaffet para poder interactuar con el mapa.
         MapBox: Libreria de tiles, son sirven para mostrar las imagenes del mapa, que integraremos con leaffet.
     Paso 3 Animaremos los mapas para crear point cuando pulsamos el mapa.
+Modulo 4
+    Paso 1 Manejo del acelerometro, con el plugin de cordoba: cordova-plugin-device-motion.
+    Paso 2 faizer libreria de juegos javaScript
