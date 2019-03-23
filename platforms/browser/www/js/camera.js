@@ -14,15 +14,25 @@ var app={
         var opciones = {
             quality: 50,
             destinationType: Camera.DestinationType.File_URI,
-            targetWidht: 300,
-            targetHeight: 300,
+            targetwidth: 300,
+            targetheight: 300,
             correctOrientation: true 
         };
         navigator.camera.getPicture(app.fotoTomada,app.errorAlTomarFoto,opciones);
     },
     fotoTomada:function(imageURI){
-        var image = document.querySelector('#foto');
-        image.src=imageURI;
+        var img = document.createElement('img');
+        img.onload = function(){
+            app.pintarFoto(img);
+        }
+        img.src=imageURI;
+    },
+    pintarFoto:function(img){
+        var canvas= document.querySelector('#foto');
+        var context = canvas.getContext('2d');
+        canvas.width= img.width;
+        canvas.height = img.height;
+        context.drawImage(img,0,0,img.width,img.height);
     },
     errorAlTomarFoto:function(menssage){
         console.log('Fallo al tomar foto o toma cancelada' + menssage);
