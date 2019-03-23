@@ -1,25 +1,37 @@
 var app = {
     inicio: function(){
         DIAMETRO_BOLA = 50;
+        
+        velocidadX=0;
+        velocidadY=0;
+
         alto = document.documentElement.clientHeight;
         ancho = document.documentElement.clientWidth;
-        console.log(alto);
-        console.log(ancho);
+
         app.vigilaSensores();
         app.iniciaJuego();
     },
 
     iniciaJuego: function(){
         function preload(){
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+            
             game.stage.backgroundColor = '#f27d0c';
             game.load.image('bola','assets/bola.png')
         }
 
         function create(){
-            game.add.sprite(app.inicioX(),app.inicioY(),'bola');
+            bola = game.add.sprite(app.inicioX(),app.inicioY(),'bola');
+            game.physics.arcade.enable(bola);
+
+        }
+        
+        function update(){
+            bola.body.velocity.y = (velocidadY * 300);
+            bola.body.velocity.x = (velocidadX * -300);
         }
 
-        var estados = {preload: preload, create: create};
+        var estados = {preload: preload, create: create, update: update};
         var game = new Phaser.Game(ancho, alto, Phaser.CANVAS, 'phaser', estados);
     },
 
@@ -42,9 +54,10 @@ var app = {
 
         function onSuccess(datosAceleracion){
             app.detectarAgitacion(datosAceleracion);
+            app.registrarDireccion(datosAceleracion);
         }
 
-        navigator.accelerometer.watchAcceleration(onSuccess, onError, {frequency: 1000});
+        navigator.accelerometer.watchAcceleration(onSuccess, onError, {frequency: 10});
     },
 
     detectarAgitacion: function(datosAceleracion){
@@ -52,8 +65,17 @@ var app = {
         agitacionY = datosAceleracion.y > 10;
 
         if (agitacionX || agitacionY){
-            console.log('agitado')
+            setTimeout(app.recomienza, 1000);
         }
+    },
+
+    recomienza: function(){
+        document.location.reload(true);
+    },
+
+    registrarDireccion: function(datosAceleracion){
+        velocidadX = datosAceleracion.x;
+        velocidadY = datosAceleracion.y;
     }
 };
 //Iniciamos
