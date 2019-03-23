@@ -23,3 +23,6 @@ Session 3
     IPhone y Android soportan webkit
     Microsoft soporte Ms
     Opera soporta O
+
+Modulo 2
+    Paso 2
