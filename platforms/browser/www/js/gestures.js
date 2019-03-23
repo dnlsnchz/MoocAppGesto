@@ -19,9 +19,15 @@ var app={
 
         hammertime.get('pinch').set({enable:true});
         hammertime.get('rotate').set({enable:true});
-        //tap doubletap pan swipe pinch rotate
-        hammertime.on('tap doubletap swipe rotate',function(ev){
-            document.querySelector('#info').innerHTML=ev.type+'!';
+
+        zona.addEventListener('webkitAnimationEnd',function(e){
+            zona.className='';
+        });
+        hammertime.on('doubletap',function(ev){
+            zona.className='doubletap';
+        });
+        hammertime.on('press',function(ev){
+            zona.className='press';
         });
     },
     ponloClaro:function(){

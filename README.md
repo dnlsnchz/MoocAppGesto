@@ -17,3 +17,9 @@ Session 1
 
 Session 2
   Para detectar todos los gestos, utilizaremos Hamer.js
+
+Session 3
+    Keyframe marco css para poner animaciones
+    IPhone y Android soportan webkit
+    Microsoft soporte Ms
+    Opera soporta O
