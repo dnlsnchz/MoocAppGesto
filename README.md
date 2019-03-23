@@ -33,4 +33,4 @@ Modulo 3
     Paso 3 Animaremos los mapas para crear point cuando pulsamos el mapa.
 Modulo 4
     Paso 1 Manejo del acelerometro, con el plugin de cordoba: cordova-plugin-device-motion.
-    Paso 2 faizer libreria de juegos javaScript
+    Paso 2 Phaser.js libreria de juegos javaScript.
