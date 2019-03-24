@@ -32,8 +32,26 @@ var app = {
         app.construirNota();
         app.ocultarEditor();
         app.refrescaLista();
+        app.grabarDatos();
     },
 
+    construirNota: function(){
+        var notas = app.model.notas;
+        notas.push({"titulo" : app.extraerTitulo(), "contenido": app.extraerComentario()})
+    },
+
+    extraerTitulo: function(){
+        return document.getElementById('titulo').value;
+    },
+    
+    extraerComentario: function(){
+        return document.getElementById('comentario').value;
+    },
+
+    ocultarEditor: function(){
+        document.getElementById('note-editor').style.display='none';
+    },
+    
     refrescaLista: function(){
         var div = document.getElementById('notes-list');
         div.innerHTML = this.anadirNotasLista();
@@ -53,27 +71,60 @@ var app = {
         return "<div class= 'note-item' id= 'notas["+id+"]' >" + titulo + "</div>";
     },
 
-    construirNota: function(){
-        var notas = app.model.notas;
-        notas.push({'titulo': app.extraerTitulo() , 'contenido': app.extraerComentario()});
+    grabarDatos: function(){
+        console.log("grabarDatos");
+        window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory, this.gotFS, this.fail);
     },
 
-    extraerTitulo: function(){
-        return document.getElementById('titulo').value;
+    gotFS: function(fileSystem){
+        console.log("gotFS");
+        fileSystem.getFile("files/" + "model.json", {create: true, exclusive: false}, app.gotFileEntry, app.fail);
     },
 
-    extraerComentario: function(){
-        return document.getElementById('comentario').value ;
+    gotFileEntry: function(fileEntry){
+        fileEntry.createWriter(app.gotFileWrite,app.fail);
     },
 
-    ocultarEditor:function(){
-        document.getElementById('note-editor').style.display='none';
+    gotFileWrite: function(writer){
+        writer.onwriteend = function(evt){
+            console.log("datos grabados en externalApplicationStorageDirectory");
+        };
+        writer.write(JSON.stringify(app.model));
+    },
+
+    leerDatos: function(){
+        console.log("leerDatos");
+        window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory, this.obtenerFS, this.fail);
+    },
+
+    obtenerFS: function(fileSystem){
+        console.log("obtenerFS");
+        fileSystem.getFile("files/" + "model.json" , null, app.obtenerFileEntry, app.fail);
+    },
+
+    obtenerFileEntry: function(fileEntry){
+        fileEntry.file(app.leerFile, app.fail);
+    },
+
+    leerFile: function(file){
+        var reader = new FileReader();
+        reader.onloadend = function(evt){
+            var data = evt.target.result;
+            app.model =JSON.parse(data);
+            app.inicio();
+        };
+        reader.readAsText(file);
+    },
+
+    fail: function(error){
+        console.log('Error: ');
+        console.log(error.code);
     }
 }
 
 //Iniciamos
 if ('addEventListener' in document){
-    document.addEventListener('DOMContentLoaded',function(){
-        app.inicio();
+    document.addEventListener('deviceready',function(){
+        app.leerDatos();
     },false);
 }
